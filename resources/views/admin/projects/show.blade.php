@@ -14,7 +14,8 @@
             <br>
             <small>Url: {{ $project->project_url }}</small>
             <br>
-            <a class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+            <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-primary"><i
+                    class="fa-solid fa-pencil"></i></a>
             <a class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
         </div>
     </div>
