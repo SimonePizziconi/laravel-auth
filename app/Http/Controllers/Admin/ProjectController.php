@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Functions\Helper;
 
 class ProjectController extends Controller
 {
@@ -13,7 +14,6 @@ class ProjectController extends Controller
      */
     public function index()
     {
-
         $projects =  Project::orderBy('id', 'desc')->get();
         return view('admin.projects.index', compact('projects'));
     }
@@ -23,7 +23,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
@@ -31,15 +31,20 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Helper::generateSlug($data['series'], Project::class);
+
+        $new_project = Project::create($data);
+
+        return redirect()->route('admin.projects.show', $new_project);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        //
+        return view('admin.projects.show', compact('project'));
     }
 
     /**

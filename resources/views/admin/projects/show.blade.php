@@ -1,0 +1,21 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="card" style="width: 18rem;">
+        <img src="{{ $project->image }}" class="card-img-top" alt="{{ $project->title }}">
+        <div class="card-body">
+            <h5 class="card-title">Titolo: {{ $project->title }}</h5>
+            <p class="card-text">Descrizione: {{ $project->description }}</p>
+            <small>Cliente: {{ $project->client }}</small>
+            <br>
+            <small>Data d'inizio:{{ $project->start_date }}</small>
+            <br>
+            <small>Data fine:{{ $project->end_date }}</small>
+            <br>
+            <small>Url: {{ $project->project_url }}</small>
+            <br>
+            <a class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+            <a class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+        </div>
+    </div>
+@endsection

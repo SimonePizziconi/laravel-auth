@@ -7,7 +7,7 @@
             <a class="" href="{{ route('admin.projects.index') }}">Elenco Progetti</a>
         </li>
         <li class="nav-item">
-            <a class="" href="#">Nuovo Progetto</a>
+            <a class="" href="{{ route('admin.projects.create') }}">Nuovo Progetto</a>
         </li>
     </ul>
 </div>

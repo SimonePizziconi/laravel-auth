@@ -19,7 +19,6 @@
         <div class="p-3 content">
             @yield('content')
         </div>
-
     </div>
 </body>
 
