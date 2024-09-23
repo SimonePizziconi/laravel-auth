@@ -9,7 +9,7 @@ header{
 
 .my-sidebar{
     height: 100%;
-    width: 200px;
+    width: 250px;
 }
 
 a{
@@ -19,4 +19,8 @@ a{
 
 li{
     list-style-type: none;
+}
+
+.content{
+    overflow: auto;
 }
