@@ -1,4 +1,22 @@
+.my-container{
+    height: calc(100vh - 50px);
+}
+
 header{
     height: 50px;
     color: #fff;
+}
+
+.my-sidebar{
+    height: 100%;
+    width: 200px;
+}
+
+a{
+    color: #fff;
+    text-decoration: none;
+}
+
+li{
+    list-style-type: none;
 }

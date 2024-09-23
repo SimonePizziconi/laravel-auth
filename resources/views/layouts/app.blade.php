@@ -11,6 +11,10 @@
 
 <body>
     @include('admin.partials.header')
+    <div class="d-flex my-container">
+        @include('admin.partials.sidebar')
+        @yield('content')
+    </div>
 </body>
 
 </html>
