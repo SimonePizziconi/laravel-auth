@@ -16,7 +16,13 @@
             <br>
             <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-primary"><i
                     class="fa-solid fa-pencil"></i></a>
-            <a class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+            <form class="d-inline" action="{{ route('admin.projects.destroy', $project) }}" method="POST"
+                onsubmit="return confirm('Vuoi eliminare')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+            </form>
+
         </div>
     </div>
 @endsection
