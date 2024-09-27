@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
+use App\Models\Type;
+use App\Models\Technology;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProjectRequest;
@@ -16,6 +18,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects =  Project::orderBy('id', 'desc')->get();
+
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -24,7 +27,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -36,6 +41,10 @@ class ProjectController extends Controller
         $data['slug'] = Helper::generateSlug($data['title'], Project::class);
 
         $new_project = Project::create($data);
+
+        if (array_key_exists('technologies', $data)) {
+            $new_project->technologies()->attach($data['technologies']);
+        };
 
         return redirect()->route('admin.projects.show', $new_project->id);
     }
@@ -53,7 +62,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -65,7 +76,15 @@ class ProjectController extends Controller
         if ($data['title'] !== $project->title) {
             $data['slug'] = Helper::generateSlug($data['title'], Project::class);
         }
+
         $project->update($data);
+
+        if (array_key_exists('technologies', $data)) {
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            $project->technologies()->detach();
+        }
+
 
         return redirect()->route('admin.projects.show', $project->id);
     }

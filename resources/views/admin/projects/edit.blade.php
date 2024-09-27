@@ -23,6 +23,25 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
+        <label for="type" class="form-label">Tipo</label>
+        <select name="type_id" id="type" class="form-select" aria-label="Default select example">
+            <option selected>Scegli tipo di progetto</option>
+            @foreach ($types as $type)
+                <option value="{{ $type->id }}" {{ old('type_id', $project->type_id) == $type->id ? 'selected' : '' }}>
+                    {{ $type->name }}</option>
+            @endforeach
+        </select>
+        <div class="mb-3">
+            <label for="type" class="form-label d-block">Tecnologie</label>
+            @foreach ($technologies as $technology)
+                <input name="technologies[]" type="checkbox" class="btn-check" id="check-{{ $technology->id }}"
+                    autocomplete="off" value="{{ $technology->id }}" {{-- validazione checked --}} @checked(
+                        ($errors->any() && in_array($technology->id, old('technologies', []))) ||
+                            (!$errors->any() && $project->technologies->contains($technology->id)))>
+                <label class="btn btn-primary" for="check-{{ $technology->id }}">{{ $technology->name }}</label>
+            @endforeach
+        </div>
+
         <div class="mb-3">
             <label for="client" class="form-label">Cliente</label>
             <input type="text" class="form-control @error('client') is-invalid @enderror" id="client" name="client"

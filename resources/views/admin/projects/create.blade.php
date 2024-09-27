@@ -2,7 +2,7 @@
 
 @section('content')
     @if ($errors->any())
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" role="alert" enctype="multipart/form-data">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>
@@ -21,6 +21,25 @@
             @error('title')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
+        </div>
+        <div class="mb-3">
+            <label for="type" class="form-label">Tipo</label>
+            <select name="type_id" id="type" class="form-select" aria-label="Default select example">
+                <option selected>Scegli tipo di progetto</option>
+                @foreach ($types as $type)
+                    <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                        {{ $type->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="type" class="form-label d-block">Tecnologie</label>
+            @foreach ($technologies as $technology)
+                <input name="technologies[]" type="checkbox" class="btn-check" id="check-{{ $technology->id }}"
+                    autocomplete="off" value="{{ $technology->id }}" {{-- validazione checked --}} @checked(in_array($technology->id, old('technologies', [])))>
+                <label class="btn btn-primary" for="check-{{ $technology->id }}">{{ $technology->name }}</label>
+            @endforeach
         </div>
         <div class="mb-3">
             <label for="client" class="form-label">Cliente</label>
